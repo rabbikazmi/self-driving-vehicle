@@ -1,5 +1,5 @@
 class Car{
-    constructor(x,y,width,height,controlType,maxSpeed=3){
+    constructor(x,y,width,height,controlType,maxSpeed=3,color="blue"){
         this.x=x;
         this.y=y;
         this.width=width;
@@ -10,15 +10,33 @@ class Car{
         this.friction=0.05;
         this.angle=0;
         this.damage=false;
+
+        this.useBrain=controlType=="AI";
         
-        // ensure polygon exists so draw() can be called before update()
         this.polygon = this.#createPolygon();
         if(controlType!="DUMMY"){
             this.sensor=new Sensor(this);
+            this.brain=new NeuralNetwork([this.sensor.rayCount,6,4]);
         }
 
         this.control=new Control(controlType);
-    }
+
+        this.img=new Image();
+        this.img.src="car.png";
+
+        this.mask=document.createElement("canvas");
+        this.mask.width=width;
+        this.mask.height=height;
+        const maskCtx=this.mask.getContext("2d");
+        this.img.onload=()=>{
+            maskCtx.fillStyle=color;
+            maskCtx.fillRect(0,0,width,height);
+            maskCtx.fill();
+            maskCtx.globalCompositeOperation="destination-atop";
+
+                maskCtx.drawImage(this.img,0,0,width,height);
+            }
+            }
 
     update(roadBorders, traffic){
         if(!this.damage){
@@ -28,6 +46,16 @@ class Car{
         }
         if(this.sensor){
             this.sensor.update(roadBorders,traffic);
+            const offsets=this.sensor.readings.map(s=>
+                s==null?0:1 - s.offset
+            );
+            const outputs=NeuralNetwork.feedForward(offsets,this.brain);
+            if(this.useBrain){
+                this.control.forward=outputs[0];
+                this.control.left=outputs[1];
+                this.control.right=outputs[2];
+                this.control.reverse=outputs[3];
+            }
         }
     }
     #assessDamage(roadBorders, traffic){
@@ -109,20 +137,32 @@ class Car{
         
     }
 
-    draw(ctx,color){
+    draw(ctx, color=null, drawSensor=false){
+        // draw car image (using pre-colored mask if available)
+        ctx.save();
+        ctx.translate(this.x,this.y);
+        ctx.rotate(-this.angle);
         if(this.damage){
-            ctx.fillStyle="gray";
-        }else{
-            ctx.fillStyle=color;
+            ctx.drawImage(
+                this.mask,
+                -this.width/2,
+                -this.height/2,
+                this.width,
+                this.height
+            );
+            ctx.globalCompositeOperation = "multiply";
         }
-        ctx.beginPath();
-        ctx.moveTo(this.polygon[0].x,this.polygon[0].y);
-        for(let i=1;i<this.polygon.length;i++){
-            ctx.lineTo(this.polygon[i].x,this.polygon[i].y);
-        }
-        ctx.closePath();
-        ctx.fill();
-        if(this.sensor){
+        ctx.drawImage(
+            this.img,
+            -this.width/2,
+            -this.height/2,
+            this.width,
+            this.height
+        );
+        ctx.restore();
+
+        // draw sensors on top when requested
+        if(this.sensor && drawSensor){
             this.sensor.draw(ctx);
         }
     }
