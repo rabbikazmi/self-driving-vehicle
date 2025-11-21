@@ -104,9 +104,9 @@ You can tune:
 
 - Number of generations
 
-## Mock Images
+## Mock 
 
-![Demo GIF](sandbox:/mnt/data/99b111eb-4d4e-4547-8e9c-4b8ec1e9d45e.png)
+<img width="1599" height="1388" alt="image" src="https://github.com/user-attachments/assets/1984ede8-4e11-44fe-bb5c-056908bbfa99" />
 
 ## Tech Stack
 
