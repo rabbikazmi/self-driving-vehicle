@@ -106,7 +106,7 @@ You can tune:
 
 ## Mock Images
 
-
+![Demo GIF](sandbox:/mnt/data/99b111eb-4d4e-4547-8e9c-4b8ec1e9d45e.png)
 
 ## Tech Stack
 
