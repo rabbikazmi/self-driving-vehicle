@@ -13,7 +13,7 @@ Uses ray-casting sensors, a custom neural network, and a genetic algorithm to tr
 - [Installation & Usage](#installation--usage)  
 - [Architecture](#architecture)  
 - [Training & Mutation](#training--mutation)  
-- [Visualizations](#visualizations)  
+- [Mock Images](#mock-images)  
 - [Tech Stack](#tech-stack)  
 - [Future Ideas](#future-ideas)  
 
@@ -60,13 +60,13 @@ Watch the best car’s brain and sensor rays in real-time
 
 ## Architecture
 
-Core Modules
+### Core Modules
 
 index.html – Main canvas layout and UI container.
 
 styles.css – Styling for the simulation interface.
 
-Vehicle & Control System
+### Vehicle & Control System
 
 car.js – Car physics, movement, collision detection, and AI decision handling.
 
@@ -74,24 +74,23 @@ control.js – Manual controls (keyboard) + AI control routing.
 
 car.png – Car sprite used for rendering.
 
-Autonomous Intelligence
+### Autonomous Intelligence
 
 network.js – Lightweight neural network (5→6→4 architecture), mutation logic, and feed-forward inference.
 
 utils.js – Helper utilities including lerp() and randomization functions.
 
-Environment & Perception
+### Environment & Perception
 
 road.js – Road layout, lane generation, and environment boundaries.
 
 sensor.js – Ray-casting based LIDAR-like sensor system for detecting traffic & walls.
 
-Simulation Engine
+### Simulation Engine
 
 main.js – Entry point: spawns cars, traffic, rendering loop, and model evolution logic.
 
 visualizer.js – Neural network visual debugger (weights, activations, layer connections).
-
 
 
 ## Training & Mutation
