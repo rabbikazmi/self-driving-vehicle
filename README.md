@@ -3,7 +3,6 @@
 A browser-based self-driving car simulation written in **pure JavaScript**.  
 Uses ray-casting sensors, a custom neural network, and a genetic algorithm to train cars to navigate and avoid collisions.
 
----
 
 ## Table of Contents
 
@@ -17,13 +16,11 @@ Uses ray-casting sensors, a custom neural network, and a genetic algorithm to tr
 - [Tech Stack](#tech-stack)  
 - [Future Ideas](#future-ideas)  
 
----
 
 ## Overview
 
 This simulation demonstrates how a self-driving car can be trained from scratch using only JavaScript — no external ML libraries. Cars use **ray-casting sensors** to perceive their environment and a **neural network** to decide steering, acceleration, and braking. The most successful cars evolve over generations using a **genetic algorithm**.
 
----
 
 ## Features
 
@@ -34,7 +31,6 @@ This simulation demonstrates how a self-driving car can be trained from scratch 
 - Visualization of sensor rays, neural network activations, and the best “brain” in real time  
 - Multiple cars: observe competition between generations
 
----
 
 ## How It Works
 
@@ -43,7 +39,6 @@ This simulation demonstrates how a self-driving car can be trained from scratch 
 3. **Act**: The car moves based on the neural network’s output and its current physics state.  
 4. **Evolve**: After each “generation,” the best-performing cars are selected and mutated (via genetic algorithm) to create the next generation.
 
----
 
 ## Installation & Usage
 
